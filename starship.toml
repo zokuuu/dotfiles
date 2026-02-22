@@ -16,7 +16,7 @@ style = "bold"
 truncation_length = 3
 
 [git_branch]
-format = "[ |   ($branch)]($style)"
+format = "[ |  ($branch) ]($style)"
 style = "bold"
 
 [git_status]
