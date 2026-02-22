@@ -3,14 +3,14 @@ font-size = 20
 #font-family = JetBrainsMono Nerd Font
 font-family = "Lilex Nerd Font"
 #theme = Catppuccin Mocha
-theme = Sonokai
+theme = TokyoNight
 
 background-opacity = 0.5
-background-blur-radius = 10
+background-blur-radius = 15
 
 cursor-style = block
 cursor-style-blink = true
-window-padding-x = 20
+window-padding-x = 10
 
 
 window-save-state = always
