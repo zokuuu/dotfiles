@@ -1,9 +1,9 @@
 font-size = 20
-font-family = "CaskaydiaCove Nerd Font"
-theme = Everforest Dark Hard
+font-family = "ZedMono Nerd Font"
+theme = Catppuccin Mocha
 
-background-opacity = 0.6
-background-blur-radius = 15
+background-opacity = 0.7
+background-blur-radius = 20
 
 cursor-style = block
 cursor-style-blink = true
