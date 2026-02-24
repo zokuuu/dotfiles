@@ -1,14 +1,32 @@
 return {
   {
-    "rcarriga/nvim-notify",
+    "rcarriga/nvim-notify", -- оставляем
     opts = {
       timeout = 5000,
       background_colour = "#000000",
       render = "wrapped-compact",
     },
   },
-  -- buffer line
 
+  {
+    "folke/noice.nvim",
+    enabled = true, -- включаем обратно
+    opts = {
+      cmdline = {
+        view = "cmdline", -- вместо всплывающего окна используем обычную командную строку
+      },
+      messages = {
+        view = "mini", -- компактные сообщения
+      },
+      popupmenu = {
+        enabled = false, -- отключаем меню
+      },
+      -- другие настройки по минимуму
+    },
+    dependencies = {
+      "rcarriga/nvim-notify",
+    },
+  },
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
@@ -23,51 +41,6 @@ return {
         show_close_icon = false,
         indicator = { icon = "", style = "none" }, -- скрыть индикатор
         separator_style = { "", "" }, -- убрать разделители
-      },
-      highlights = {
-        background = { bg = "none" },
-        fill = { bg = "none" },
-        buffer_selected = { bg = "none", fg = "#fab387" },
-        buffer_visible = { bg = "none", fg = "#a6adc8" },
-        close_button = { bg = "none" },
-        close_button_selected = { bg = "none" },
-        close_button_visible = { bg = "none" },
-        duplicate = { bg = "none" },
-        duplicate_selected = { bg = "none" },
-        duplicate_visible = { bg = "none" },
-        error = { bg = "none" },
-        error_selected = { bg = "none" },
-        error_visible = { bg = "none" },
-        hint = { bg = "none" },
-        hint_selected = { bg = "none" },
-        hint_visible = { bg = "none" },
-        indicator_selected = { bg = "none" },
-        indicator_visible = { bg = "none" },
-        info = { bg = "none" },
-        info_selected = { bg = "none" },
-        info_visible = { bg = "none" },
-        modified = { bg = "none" },
-        modified_selected = { bg = "none" },
-        modified_visible = { bg = "none" },
-        numbers = { bg = "none" },
-        numbers_selected = { bg = "none" },
-        numbers_visible = { bg = "none" },
-        offset_separator = { bg = "none" },
-        pick = { bg = "none" },
-        pick_selected = { bg = "none" },
-        pick_visible = { bg = "none" },
-        separator = { bg = "none" },
-        separator_selected = { bg = "none" },
-        separator_visible = { bg = "none" },
-        tab = { bg = "none" },
-        tab_close = { bg = "none" },
-        tab_selected = { bg = "none" },
-        tab_separator = { bg = "none" },
-        tab_separator_selected = { bg = "none" },
-        trunc_marker = { bg = "none" },
-        warning = { bg = "none" },
-        warning_selected = { bg = "none" },
-        warning_visible = { bg = "none" },
       },
     },
   },
