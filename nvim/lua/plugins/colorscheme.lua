@@ -1,9 +1,12 @@
 return {
-  "morhetz/gruvbox",
-  lazy = false,
-  priority = 1000,
-  config = function()
-    vim.g.gruvbox_contrast_dark = "hard"
-    vim.cmd("colorscheme gruvbox")
-  end,
+  {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = true,
+    priority = 1000,
+    opts = function()
+      return {
+        transparent = true,
+      }
+    end,
+  },
 }

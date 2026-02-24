@@ -1,32 +1,74 @@
 return {
+  -- messages, cmdline and the popupmenu
   {
-    "rcarriga/nvim-notify", -- оставляем
+    "folke/noice.nvim",
+    opts = function(_, opts)
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          find = "No information available",
+        },
+        opts = { skip = true },
+      })
+      local focused = true
+      vim.api.nvim_create_autocmd("FocusGained", {
+        callback = function()
+          focused = true
+        end,
+      })
+      vim.api.nvim_create_autocmd("FocusLost", {
+        callback = function()
+          focused = false
+        end,
+      })
+      table.insert(opts.routes, 1, {
+        filter = {
+          cond = function()
+            return not focused
+          end,
+        },
+        view = "notify_send",
+        opts = { stop = false },
+      })
+
+      opts.commands = {
+        all = {
+          -- options for the message history that you get with `:Noice`
+          view = "split",
+          opts = { enter = true, format = "details" },
+          filter = {},
+        },
+      }
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        callback = function(event)
+          vim.schedule(function()
+            require("noice.text.markdown").keys(event.buf)
+          end)
+        end,
+      })
+
+      opts.presets.lsp_doc_border = true
+    end,
+  },
+
+  {
+    "rcarriga/nvim-notify",
     opts = {
       timeout = 5000,
-      background_colour = "#000000",
-      render = "wrapped-compact",
     },
   },
 
   {
-    "folke/noice.nvim",
-    enabled = true, -- включаем обратно
+    "snacks.nvim",
     opts = {
-      cmdline = {
-        view = "cmdline", -- вместо всплывающего окна используем обычную командную строку
-      },
-      messages = {
-        view = "mini", -- компактные сообщения
-      },
-      popupmenu = {
-        enabled = false, -- отключаем меню
-      },
-      -- другие настройки по минимуму
+      scroll = { enabled = false },
     },
-    dependencies = {
-      "rcarriga/nvim-notify",
-    },
+    keys = {},
   },
+
+  -- buffer line
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
@@ -37,49 +79,62 @@ return {
     opts = {
       options = {
         mode = "tabs",
+        -- separator_style = "slant",
         show_buffer_close_icons = false,
         show_close_icon = false,
-        indicator = { icon = "", style = "none" }, -- скрыть индикатор
-        separator_style = { "", "" }, -- убрать разделители
       },
     },
   },
+
   -- filename
   {
     "b0o/incline.nvim",
-    dependencies = {},
+    dependencies = { "craftzdog/solarized-osaka.nvim" },
     event = "BufReadPre",
     priority = 1200,
     config = function()
-      local helpers = require("incline.helpers")
+      local colors = require("solarized-osaka.colors").setup()
       require("incline").setup({
-        window = {
-          padding = 0,
-          margin = { horizontal = 0 },
+        highlight = {
+          groups = {
+            InclineNormal = { guibg = colors.magenta500, guifg = colors.base04 },
+            InclineNormalNC = { guifg = colors.violet500, guibg = colors.base03 },
+          },
+        },
+        window = { margin = { vertical = 0, horizontal = 1 } },
+        hide = {
+          cursorline = true,
         },
         render = function(props)
           local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-          local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
-          local modified = vim.bo[props.buf].modified
-          local buffer = {
-            ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or "",
-            " ",
-            { filename, gui = modified and "bold,italic" or "bold" },
-            " ",
-            guibg = "#363944",
-          }
-          return buffer
+          if vim.bo[props.buf].modified then
+            filename = "[+] " .. filename
+          end
+
+          local icon, color = require("nvim-web-devicons").get_icon_color(filename)
+          return { { icon, guifg = color }, { " " }, { filename } }
         end,
       })
     end,
   },
 
+  -- statusline
   {
-    "snacks.nvim",
-    opts = {
-      scroll = { enabled = false },
-    },
-    keys = {},
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      local LazyVim = require("lazyvim.util")
+      opts.sections.lualine_c[4] = {
+        LazyVim.lualine.pretty_path({
+          length = 0,
+          relative = "cwd",
+          modified_hl = "MatchParen",
+          directory_hl = "",
+          filename_hl = "Bold",
+          modified_sign = "",
+          readonly_icon = " 󰌾 ",
+        }),
+      }
+    end,
   },
   {
     "MeanderingProgrammer/render-markdown.nvim",
