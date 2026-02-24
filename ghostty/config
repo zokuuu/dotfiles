@@ -1,7 +1,7 @@
 font-size = 20
 #font-family = "CaskaydiaCove Nerd Font"
 #font-family = JetBrainsMono Nerd Font
-font-family = "Lilex Nerd Font"
+font-family = "Hack Nerd Font"
 #theme = Catppuccin Mocha
 theme = Catppuccin Mocha
 
@@ -10,7 +10,7 @@ background-blur-radius = 15
 
 cursor-style = block
 cursor-style-blink = true
-window-padding-x = 10
+#window-padding-x = 10
 
 
 window-save-state = always

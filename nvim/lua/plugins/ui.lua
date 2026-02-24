@@ -108,12 +108,6 @@ return {
     },
     keys = {},
   },
-
-  {
-    "nvim-lualine/lualine.nvim",
-    enabled = false,
-  },
-
   {
     "MeanderingProgrammer/render-markdown.nvim",
     enabled = false,

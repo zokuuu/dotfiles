@@ -10,13 +10,19 @@
 --   end,
 -- }
 
+-- return {
+--   "folke/tokyonight.nvim",
+--   opts = {
+--     transparent = true,
+--     styles = {
+--       sidebars = "transparent",
+--       floats = "transparent",
+--     },
+--   },
+-- }
 return {
-  "folke/tokyonight.nvim",
-  opts = {
-    transparent = true,
-    styles = {
-      sidebars = "transparent",
-      floats = "transparent",
-    },
-  },
+  "everblush/everblush.vim",
+  lazy = false,
+  priority = 1000,
+  config = function() end,
 }
