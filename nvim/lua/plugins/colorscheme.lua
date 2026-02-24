@@ -1,12 +1,16 @@
 return {
   {
-    "craftzdog/solarized-osaka.nvim",
-    lazy = true,
-    priority = 1000,
-    opts = function()
-      return {
-        transparent = true,
-      }
+    "neanias/everforest-nvim",
+    config = function()
+      require("everforest").setup({
+        transparent_background_level = 1,
+      })
     end,
+  },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "everforest",
+    },
   },
 }
