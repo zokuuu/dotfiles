@@ -14,6 +14,7 @@ keymap.set("n", "<Leader>d", '"_d')
 keymap.set("n", "<Leader>D", '"_D')
 keymap.set("v", "<Leader>d", '"_d')
 keymap.set("v", "<Leader>D", '"_D')
+keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
